@@ -1,0 +1,1 @@
+Total VDP count: 105285.0 Total ID count: 85424.0 ClickThruRate:	1.2324990634950366
