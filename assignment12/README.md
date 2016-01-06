@@ -1,5 +1,7 @@
 ##Assignment 12 - Price Range Analysis
 
+####Goals:
+
 For assignment 12 you'll use several of the patterns/techniques you've coded over the semester to collect some data about users whose activities are recorded in user sessions. In particular, the goal is to collect data on the price ranges of vehicles of interest to users based on which vehicles they clicked on (clicked on a result on an SRP (search results page) to view the VDP (vehicle details page)). This can help answer questions like:
 
 * For users searching for a vehicle around $15K, how broad is the price range they consider?
