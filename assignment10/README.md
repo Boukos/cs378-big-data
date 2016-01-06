@@ -14,7 +14,8 @@ First, change the output format for sessions from TextFileOutputFormat to AvroKe
 
 Your reduce class declaration should look like this:
 
-```public class ReduceClass
+```
+public class ReduceClass
 	extends Reducer<Text, AvroValue<Session>,
         AvroKey<Pair<CharSequence, Session>>, NullWritable>
 ```
