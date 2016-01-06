@@ -3,9 +3,7 @@
 ###Goals
 
 * Compile a Java map-reduce program
-
 * Create a JAR file containing the map-reduce code, ready for upload to AWS or Hadoop cluster
-
 * Login to AWS
  * Create a folder for your personal use
  * Create sub-folders for jar files, logs, inputs, and outputs. I recommend "jars", "logs", "data", and "output"
@@ -29,36 +27,38 @@ I will email a user name (your UT-EID) and password to each of you. Use these cr
 
 In your folder, create subfolders named: data, jars, logs, and output. You will use these folders for:
 
-data - uploading data files you want to use for testing your map-reduce program.
-jars - uploading your JAR files
-logs - capturing the logs os a map-reduce job execution
-output - capturing the output of your map-reduce job execution
+* data - uploading data files you want to use for testing your map-reduce program.
+* jars - uploading your JAR files
+* logs - capturing the logs os a map-reduce job execution
+* output - capturing the output of your map-reduce job execution
+
 Now you're set up to upload your JAR file, define a cluster and job step, and run a map-reduce program. Click on the jars folder. Once in this directory, click on the Actions tab and select Upload. Find your JAR file and upload it to S3. If you have a data file, you can upload it in a similar manner. For this assignment, you should use the data file: utcs378/data/dataSet1.txt
 
 Now let's define a cluster and job step to run your map-reduce program.
 
 Select the "Elastic MapReduce" service. You may notice several clusters listed there (hopefully they are all terminated). I engourage everyone to make their clusters visible only to themselves to avoid clutter, and I'll show you how to specify that when you create a cluster. If no clusters are visible, you'll see Welcome to Amazon Elastic MapReduce page. In eiter case, click the "Create Cluster" button.
 
-Cluster name: Include your userid (UT-EID) or other info so I can identify the owner in case I need to contact you regarding the cluster.
-Termination Protection: Select "No"
-Logging: Enable logging. Assuming you created a folder named "logs", the logging folder S3 location will look like: s3://utcs378/youruserid/logs.  Log files will be placed under a folder there with a unique name assigned to the mapreduce job by S3/Hadoop. 
-Debugging: Disabled for now.
-Tags: None for now.
-Software Configuration: Select 2.4.7
-Applications to be installed: Unselect Hive and Pig (click on the X), as they are not needed now, and only slow the job startup (adding to the AWS charges).
-Hardware Configuration: Leave Network and EC2 Subnet as their defaults.
-EC2 istance type: Select m1.small for each of Master, Core, and Task. Leave the counts as they are, and reduce the Core count from 2 to 1.
-Security and Access: Select "bdp" for EC2 key pair, and set visibility (IAM user access) to "No other IAM users.
-IAM Roles: Use the default values (No roles found).
-Bootstrap Actions: None.
-Steps:
-OK, here's where we finally get to say something about our map-reducet job.
-Click on "Select a step", choose "Custom JAR", and click on "Configure and Add".
-In the "Add Step" dialog box:
-Name: the filename of your JAR file: bdp-1.0.jar
-JAR Location: s3n://utcs378/youruserid/jars/bdp-1.0.jar
-Arguments: This map reduce job takes two arguments, the input file and the output folder s3n://utcs378/data/dataSet1.txt s3n://utcs378/youruserid/output/dataSet1
-Click "Add".
-Note: If the output folder already exists, the job will fail, so you need to specify a new folder each time for the output, or delete the output folder before running the job.
-Auto-terminate: I recommend that you say "No" here. The reason being that the minimum charge for any job is one hour of whatever resources are used. So if you run for 10 minutes or 58 minutes, you (we) are charged for one hour. If you need to re-run the job, it's easy to add a step and run that step (remember to delete the output folder if you reuse it in another step). In keeping the cluster running, you don't want to inadvertantly leave it running for many hours and run up the charges on the account. I will check the console occasionally and terminate any long running clusters. But don't rely on me to find these, be sure and terminate the clusters you spin up as quickly as possible.
+* Cluster name: Include your userid (UT-EID) or other info so I can identify the owner in case I need to contact you regarding the cluster.
+* Termination Protection: Select "No"
+* Logging: Enable logging. Assuming you created a folder named "logs", the logging folder S3 location will look like: s3://utcs378/youruserid/logs.  Log files will be placed under a folder there with a unique name assigned to the mapreduce job by S3/Hadoop. 
+* Debugging: Disabled for now.
+* Tags: None for now.
+* Software Configuration: Select 2.4.7
+* Applications to be installed: Unselect Hive and Pig (click on the X), as they are not needed now, and only slow the job startup (adding to the AWS charges).
+* Hardware Configuration: Leave Network and EC2 Subnet as their defaults.
+* EC2 istance type: Select m1.small for each of Master, Core, and Task. Leave the counts as they are, and reduce the Core count from 2 to 1.
+* Security and Access: Select "bdp" for EC2 key pair, and set visibility (IAM user access) to "No other IAM users.
+* IAM Roles: Use the default values (No roles found).
+* Bootstrap Actions: None.
+* Steps:
+ * OK, here's where we finally get to say something about our map-reducet job.
+ * Click on "Select a step", choose "Custom JAR", and click on "Configure and Add".
+ * In the "Add Step" dialog box:
+ * Name: the filename of your JAR file: bdp-1.0.jar
+ * JAR Location: s3n://utcs378/youruserid/jars/bdp-1.0.jar
+ * Arguments: This map reduce job takes two arguments, the input file and the output folder s3n://utcs378/data/dataSet1.txt s3n://utcs378/youruserid/output/dataSet1
+ * Click "Add".
+ * Note: If the output folder already exists, the job will fail, so you need to specify a new folder each time for the output, or delete the output folder before running the job.
+ * Auto-terminate: I recommend that you say "No" here. The reason being that the minimum charge for any job is one hour of whatever resources are used. So if you run for 10 minutes or 58 minutes, you (we) are charged for one hour. If you need to re-run the job, it's easy to add a step and run that step (remember to delete the output folder if you reuse it in another step). In keeping the cluster running, you don't want to inadvertantly leave it running for many hours and run up the charges on the account. I will check the console occasionally and terminate any long running clusters. But don't rely on me to find these, be sure and terminate the clusters you spin up as quickly as possible.
+ 
 Assuming that you successfully run the job, you can examine the output.
