@@ -39,19 +39,21 @@ Steps in using DistributedCache (example code in the lecture notes):
 
 __Multiple Outputs:__ For multiple outputs, you'll examine each user session and classify it into one of these categories: bouncer, browser, searcher, submitter. Given a category, you'll write the user session out to a file determined by the category. To do this, you'll use the Hadoop class MultipleOutputs. (Note: The corresponding class for Avro, namely AvroMultipleOutputs, has the limitation that we cannot use TextOutputFormat. We can only output Avro objects into Avro container files, which are binary files and unreadable.)
 
-Categorizing sessions: You should determine the user session category as follows:
+*Categorizing sessions:* You should determine the user session category as follows:
 
-If the session has a lead, the category is "submitter"
-If the session does not have a lead, and only one impression, the category is "bouncer"
-If not "submimtter" or "bouncer", then the session category is "browser" if it has only SRP impressions, otherwise the category is "searcher".
+	1. If the session has a lead, the category is "submitter"
+	2. If the session does not have a lead, and only one impression, the category is "bouncer"
+	3. If not "submimtter" or "bouncer", then the session category is "browser" if it has only SRP impressions, otherwise the category is "searcher".
+
 Steps in using MultipleOutputs (example code in the lecture notes, which have been updated):
 
-In your run() method:
-Tell Hadoop you'll be using multiple output files by calling the addNamedOutput() method of MultipleOutputs.
-Also tell Hadoop to enable counters for multiple outputs
-In the setup() method of the reduce class, create an instance of MultipleOutputs
-In the cleanup() method of the reduce class, call the close() method of the MultipleOutputs instance
-In the reduce() method, call the write() method on the MultipleOutputs instance.
+* In your run() method:
+ * Tell Hadoop you'll be using multiple output files by calling the addNamedOutput() method of MultipleOutputs.
+ * Also tell Hadoop to enable counters for multiple outputs
+* In the setup() method of the reduce class, create an instance of MultipleOutputs
+* In the cleanup() method of the reduce class, call the close() method of the MultipleOutputs instance
+* In the reduce() method, call the write() method on the MultipleOutputs instance.
+
 Since you are using MultipleOutputs instead of AvroMultipleOuptuts (in order to get readable text output), you will need to change the declaration of your reduce class to specify the following input key/value and output key/value types:
 
 <Text, AvroValue<Session>, Text, Text>
@@ -64,32 +66,35 @@ For inputs (impression and lead logs), use the data sets from assignment7. I wil
 
 The command line you create for your mapReduce app on AWS will now have five arguments on the command line:
 
-your class name
-s3n://utcs378/data/dataSet7Impressions.txt
-s3n://utcs378/data/dataSet7Leads.txt
-your output directory
-s3n://utcs378/data/dataSet8Zip2Dma.txt
-Required elements:
+* your class name
+* s3n://utcs378/data/dataSet7Impressions.txt
+* s3n://utcs378/data/dataSet7Leads.txt
+* your output directory
+* s3n://utcs378/data/dataSet8Zip2Dma.txt
 
-Make your mapReduce key the userId + ":" + apikey
-Define a mapper for impression log entries, and a separate mapper for lead log entries
-Use the MultipleInputs class to associate these mappers with the corresponding input file
-Map output (for both mappers) should be: Text, AvroValue<Session>
-Reduce output should be: Text, Text
-Use DistributedCache class to send the zip/dma map file to all mappers
-Reducer should write output to a file determined by the categorization of the session
-Impressions should be ordered by timestamp
-The "vdp_index" field in a Lead should have the index of the corresponding VDP impression, if that impression exists. Otherwise, this field should be -1.
+__Required elements:__
+
+* Make your mapReduce key the userId + ":" + apikey
+* Define a mapper for impression log entries, and a separate mapper for lead log entries
+* Use the MultipleInputs class to associate these mappers with the corresponding input file
+* Map output (for both mappers) should be: Text, AvroValue<Session>
+* Reduce output should be: Text, Text
+* Use DistributedCache class to send the zip/dma map file to all mappers
+* Reducer should write output to a file determined by the categorization of the session
+* Impressions should be ordered by timestamp
+* The "vdp_index" field in a Lead should have the index of the corresponding VDP impression, if that impression exists. Otherwise, this field should be -1.
+
 I have provided the Avro schema (session.avsc) I want you to use for this assignment. This file can be found on Canvas: Files / Assignment 8.
 
 Output files on AWS will look like this:
 
-bouncer-r-00000
-browser-r-00000
-searcher-r-00000
-submitter-r-00000
-Artifacts to submit:
+* bouncer-r-00000
+* browser-r-00000
+* searcher-r-00000
+* submitter-r-00000
 
-Assignment8Build.zip - all files (Java, avsc, pom.xml) in the directory structure required by maven and buildable with your pom.xml file.
-Assignment8Code.zip - all files (Java, avsc) in a flat directory for easy inspection for grading
-Assignment8Output.txt - output file containing the text representation of your Avro user session objects
+__Artifacts to submit:__
+
+* Assignment8Build.zip - all files (Java, avsc, pom.xml) in the directory structure required by maven and buildable with your pom.xml file.
+* Assignment8Code.zip - all files (Java, avsc) in a flat directory for easy inspection for grading
+* Assignment8Output.txt - output file containing the text representation of your Avro user session objects
