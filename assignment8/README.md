@@ -1,17 +1,21 @@
-Assignment 8 - Replicated Join and Multiple Outputs
-Due Nov 6, 2014 by 9:30am  Points 25  Submitting a file upload
+##Assignment 8 - Replicated Join and Multiple Outputs
+
+__Goals:__
+
 For this assignment you'll be adding two capabilities we've discussed previously to your session generator app:
 
-Replicated join: copying small files to all the machines where your tasks (map and reduce) will be running so that each task can load these files and "join" them with the large data set.
-Multiple outputs: from a reducer, send the output to different files based on some characteristic of the data. We saw this done in the "binning" pattern, where mappers write their output to different files based on some aspect of the data. You'll do this from the reducer.
+* Replicated join: copying small files to all the machines where your tasks (map and reduce) will be running so that each task can load these files and "join" them with the large data set.
+* Multiple outputs: from a reducer, send the output to different files based on some characteristic of the data. We saw this done in the "binning" pattern, where mappers write their output to different files based on some aspect of the data. You'll do this from the reducer.
+
 First, the Avro schema for a user session (provided for this assignment) has been updated as follows:
 
-dma field (text) added to impression
-customer_zip and customer_dma fields added to lead
-vehicle_zip and vehicle_dma fields added to lead
+* dma field (text) added to impression
+* customer_zip and customer_dma fields added to lead
+* vehicle_zip and vehicle_dma fields added to lead
+
 For impressions, you should populate the zip field in the Avro schema when you see the "zip" field or when you see the "listingzip" field in an impression log entry. For leads, you should populate the customer_zip field in the Avro schema when you see the "customer_zip" field in the lead log entry, and populate the vehicle_zip field in the Avro schema when you see the "zip" field in the lead log entry.
 
-Replicated Join: For replicated join, a file that associates a zip with a dma code (three digits) is provided. You should use the Hadoop class DistributedCache to get this file copied to all machines where your map and reduce tasks are running. In the mapper class for impressions and the mapper class for leads, you'll read this file in the setup() method and create a data structure that allows you to look up a dma code given a zip code. As you are processing impressions or leads, if the log entry has a zip code defined, then set the corresponding dma field in the Avro object.
+__Replicated Join:__ For replicated join, a file that associates a zip with a dma code (three digits) is provided. You should use the Hadoop class DistributedCache to get this file copied to all machines where your map and reduce tasks are running. In the mapper class for impressions and the mapper class for leads, you'll read this file in the setup() method and create a data structure that allows you to look up a dma code given a zip code. As you are processing impressions or leads, if the log entry has a zip code defined, then set the corresponding dma field in the Avro object.
 
 The format of the zip/dma file looks like this:
 
@@ -25,15 +29,15 @@ The format of the zip/dma file looks like this:
 
 Steps in using DistributedCache (example code in the lecture notes):
 
-In your run() method:
-Get the name of the zipToDma mapping file from the command line
-Tell Hadoop about this file using the addCacheFile() method of DistributedCache. Note that you need to make the call to addCacheFile() after you have created the Configuration object, but before you create the Job object.
-In the setup() method of your mappers (impression and lead):
-Get the array of filenames (Path[]) using the getLocalCacheFiles() method of DistributedCache
-Read these files into memory (we only have one such file) to create your data structure that maps zip codes to dma codes.
+* In your run() method:
+ * Get the name of the zipToDma mapping file from the command line
+ * Tell Hadoop about this file using the addCacheFile() method of DistributedCache. Note that you need to make the call to addCacheFile() after you have created the Configuration object, but before you create the Job object.
+* In the setup() method of your mappers (impression and lead):
+ * Get the array of filenames (Path[]) using the getLocalCacheFiles() method of DistributedCache
+ * Read these files into memory (we only have one such file) to create your data structure that maps zip codes to dma codes.
  
 
-Multiple Outputs: For multiple outputs, you'll examine each user session and classify it into one of these categories: bouncer, browser, searcher, submitter. Given a category, you'll write the user session out to a file determined by the category. To do this, you'll use the Hadoop class MultipleOutputs. (Note: The corresponding class for Avro, namely AvroMultipleOutputs, has the limitation that we cannot use TextOutputFormat. We can only output Avro objects into Avro container files, which are binary files and unreadable.)
+__Multiple Outputs:__ For multiple outputs, you'll examine each user session and classify it into one of these categories: bouncer, browser, searcher, submitter. Given a category, you'll write the user session out to a file determined by the category. To do this, you'll use the Hadoop class MultipleOutputs. (Note: The corresponding class for Avro, namely AvroMultipleOutputs, has the limitation that we cannot use TextOutputFormat. We can only output Avro objects into Avro container files, which are binary files and unreadable.)
 
 Categorizing sessions: You should determine the user session category as follows:
 
