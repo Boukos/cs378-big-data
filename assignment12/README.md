@@ -28,7 +28,7 @@ Step 3 (summarization). Aggregate the price data for each user and compute the f
 
 Full credit will be given for a correct solution that implements a solution with three separate map-reduce jobs. Extra credit given for a solution that uses job chaining so that all jobs are accomplished with a single step on your AWS cluster.
 
-Recommedations:
+__Recommedations:__
 
 I have provided a small version of the user session file and the ID/price file. Get your solution working on this small data before running on the large data set.
 
@@ -44,18 +44,18 @@ To collect the statistics in Step 3, use the Java class: DescriptiveStatistics. 
         <version>3.3</version>
     </dependency>
 
-Data files:
+__Data files:__
 
 * User sessions: s3n://utcs378/data/dataSet12small/part-r-00000.avro
 * ID/price: s3n://utcs378/data/dataSet12small/recordIdPrice.txt
 * User sessions: s3n://utcs378/data/dataSet12large/part-r-00000.avro
 * ID/price: s3n://utcs378/data/dataSet12large/recordIdPrice.txt
 
-Required elements:
+__Required elements:__
 
 * Price range statistics for each user, taken from the large user session file.
 
-Artifacts to submit:
+__Artifacts to submit:__
 
 * Assignment12Build.zip - all files (Java, pom.xml, .avsc) in the directory structure required by maven and buildable with your pom.xml file.
 * Assignment12Code.zip - all files (Java, avsc) in a flat directory for easy inspection for grading.
