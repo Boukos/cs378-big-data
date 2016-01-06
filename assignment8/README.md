@@ -56,7 +56,7 @@ Steps in using MultipleOutputs (example code in the lecture notes, which have be
 
 Since you are using MultipleOutputs instead of AvroMultipleOuptuts (in order to get readable text output), you will need to change the declaration of your reduce class to specify the following input key/value and output key/value types:
 
-\<Text, AvroValue<Session>, Text, Text>
+\<Text, AvroValue\<Session>, Text, Text>
 
 In particular, note that you'll be writing the output key (userId:apikey) as a Text object, and you'll be writing out the value (Session) as a Text object. To convert your Session to a Text object, do this:
 
