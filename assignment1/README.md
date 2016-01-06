@@ -1,9 +1,12 @@
 ##Assignment 1
 
 ###Goals
-*Compile a Java map-reduce program
-*Create a JAR file containing the map-reduce code, ready for upload to AWS or Hadoop cluster
-*Login to AWS
+
+* Compile a Java map-reduce program
+
+* Create a JAR file containing the map-reduce code, ready for upload to AWS or Hadoop cluster
+
+* Login to AWS
 Create a folder for your personal use
 Create sub-folders for jar files, logs, inputs, and outputs. I recommend "jars", "logs", "data", and "output"
 Upload the JAR file
