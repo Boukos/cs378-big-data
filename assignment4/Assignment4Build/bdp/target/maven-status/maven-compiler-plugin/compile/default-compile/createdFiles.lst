@@ -1,0 +1,7 @@
+com/refactorlabs/cs378/assign2/WordStatistics$MapClass.class
+com/refactorlabs/cs378/utils/LongArrayWritable.class
+com/refactorlabs/cs378/assign2/WordStatistics$ReduceClass.class
+com/refactorlabs/cs378/utils/WritableUtils.class
+com/refactorlabs/cs378/utils/DoubleArrayWritable.class
+com/refactorlabs/cs378/utils/WordStatisticsWritable.class
+com/refactorlabs/cs378/assign2/WordStatistics.class
