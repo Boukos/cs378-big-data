@@ -1,21 +1,25 @@
-Assignment 5 - Use Avro
-Due Oct 7, 2014 by 9:30am  Points 10  Submitting a file upload
+##Assignment 5 - Use Avro
+
+__Goal:__
+
 The goal of this assignment is to familiarize yourself with:
 
-defining objects using AVRO
-generating the Java bindings
-using/referencing AVRO objects in your map-reduce code
-understanding output of AVRO defined objects
+* defining objects using AVRO
+* generating the Java bindings
+* using/referencing AVRO objects in your map-reduce code
+* understanding output of AVRO defined objects
+
 In this assignment you will:
 
-define an object (using AVRO) that contains the data produced by the WordStatistics app:
-document count
-total count
-sum of squares
-mean
-variance
-Call this object WordStatisticsData
-Modify your WordStatistics app to use WordStatisticsData
+* define an object (using AVRO) that contains the data produced by the WordStatistics app:
+ * document count
+ * total count
+ * sum of squares
+ * mean
+ * variance
+* Call this object WordStatisticsData
+* Modify your WordStatistics app to use WordStatisticsData
+
 Use the example code from WordCountD.java as your guide. This file is available on Canvas.
 
 For maven to see your AVRO schema files (file suffix is:  .avsc), you need to place them under the directory: src/main/avro
@@ -24,11 +28,13 @@ For maven to see your AVRO schema files (file suffix is:  .avsc), you need to pl
 
 As we are starting to use additional libraries, we need to make sure that once on AWS our Java classpath has the libraries we intend (specifically, the versions we compiled against). We have already included these libraries in the JAR file we create and upload to AWS. Now we need to make sure that our "uber" JAR is placed in the classpath before any definitions in the classpath that AWS Elastic MapReduce creates for us. To do this, we need to specify that our JAR file should come first in the classpath during the setup (bootstrap) of our AWS cluster. You need to create a small file (shell script) and upload it to your folder in S3, and then reference this file in the "Bootstrap Actions" when specifying your AWS cluster. The file will look like this:
 
+```
 #!/bin/bash
 
 echo "export HADOOP_USER_CLASSPATH_FIRST=true" > /home/hadoop/conf/hadoop-user-env.sh
 
 echo "export HADOOP_CLASSPATH=\"s3n://utcs378/jars/bdp-1.4.jar\"" >> /home/hadoop/conf/hadoop-user-env.sh
+```
 
 Substitute the path to your JAR file in place of: "//utcs378/jars/bdp-1.4.jar" and upload this file to your folder (I suggest that you name it "bootstrap.sh", easy to access and easy to remember). An example of this file is available on Canvas.
 
