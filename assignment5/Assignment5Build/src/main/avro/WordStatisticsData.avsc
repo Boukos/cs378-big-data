@@ -1,0 +1,11 @@
+{"namespace": "com.refactorlabs.cs378",
+"type": "record",
+"name": "WordStatisticsData",
+"fields": [
+{"name": "document_count", "type": "long","default": 0},
+{"name": "total_count", "type": "long","default": 0},
+{"name": "sum_of_squares", "type": "long","default": 0},
+{"name": "mean", "type": ["double", "null"],"default": 0.0},
+{"name": "variance", "type": ["double", "null"],"default": 0.0}
+]
+}
