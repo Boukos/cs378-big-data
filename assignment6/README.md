@@ -12,18 +12,18 @@ You should download dataSet6.txt from S3 examine the content to familiarize your
 As was discussed in class, determine which fields should be associated with the session in total, and which fields should be associated with an individual impression. The fields you should consider and include in your Avro object are:
 
 * __type__ (enum is already created for you in the provided .avsc file). Values you find for the type parameter should be represented as an enum values as follows:
-action -> enum value ACTION
-Email, Phone, email, landing, phone -> enum value VDP
-no value provided -> enum value SRP
-action (enum is already created for you in the provided .avsc file). Values you find for the action parameter should be represented as an enum values as follows:
-click -> enum value CLICK
-no value specified -> enum value PAGE_VIEW
-action_name - create an enum for this field
-id - an array of zero or more longs
-timestamp
-ab - store the associated string
-vertical - create an enum for this field
-start_index
+ * action -> enum value ACTION
+ * Email, Phone, email, landing, phone -> enum value VDP
+ * no value provided -> enum value SRP
+* __action__ (enum is already created for you in the provided .avsc file). Values you find for the action parameter should be represented as an enum values as follows:
+ * click -> enum value CLICK
+ * no value specified -> enum value PAGE_VIEW
+* __action_name__ - create an enum for this field
+* __id__ - an array of zero or more longs
+* __timestamp__
+* __ab__ - store the associated string
+* __vertical__ - create an enum for this field
+* __start_index__
 total
 domain
 lat
