@@ -24,20 +24,21 @@ As was discussed in class, determine which fields should be associated with the 
 * __ab__ - store the associated string
 * __vertical__ - create an enum for this field
 * __start_index__
-total
-domain
-lat
-lon
-address
-city
-zip
-state
-phone_type - create an enum for this field
-uid
-apikey
-uagent
-res
-activex
+* __total__
+* __domain__
+* __lat__
+* __lon__
+* __address__
+* __city__
+* __zip__
+* __state__
+* __phone_type__ - create an enum for this field
+* __uid__
+* __apikey__
+* __uagent__
+* __res__
+* __activex__
+
 Your mapReduce job should group impressions together by uid (user ID) and apikey, and organize them in an array ordered by timestamp and add them to the session object.
 
 The easiest way to understand all the values that might occur in a field is to run your WordCount app against dataSet6.txt, as it will show you all the unique parameter:value pairs and the number of occurrences for each unique parameter:value pair.
@@ -46,11 +47,12 @@ Input: dataSet6.txt
 
 Output: Avro text representation of your user session instances
 
-Required elements:
+__Required elements:__
 
-Avro defined object representing a user session
-Artifacts to submit:
+* Avro defined object representing a user session
 
-Assignment6Build.zip - all files (Java, avsc, pom.xml) in the directory structure required by maven and buildable with your pom.xml file.
-Assignment6Code.zip - all files (Java, avsc) in a flat directory for easy inspection for grading
-Assignment6Output.txt - output file containing the text representation of your Avro user session objects
+__Artifacts to submit:__
+
+* Assignment6Build.zip - all files (Java, avsc, pom.xml) in the directory structure required by maven and buildable with your pom.xml file.
+* Assignment6Code.zip - all files (Java, avsc) in a flat directory for easy inspection for grading
+* Assignment6Output.txt - output file containing the text representation of your Avro user session objects
